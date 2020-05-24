@@ -1,1 +1,1 @@
-# cc-coin
+# Simple coin with blockchain
