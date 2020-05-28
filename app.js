@@ -33,14 +33,24 @@ app.get('/new-wallet', (req, res) => {
 
 app.get('/balance', (req, res) => {
 	var pubKeyHash = req.query.id
-	var wallet = globalBlockChain.walletDictionary[pubKeyHash]
-	res.json({
-		code: Const.SUCCESS,
-		message: "Successfull",
-		data: {
-			balance: wallet.GetTotalMoney()
-		}
-	})
+	if (globalBlockChain.walletArray.indexOf(pubKeyHash) == -1) {
+		res.json({
+			code: Const.SUCCESS,
+			message: "Successfull",
+			data: {
+				balance: 0
+			}
+		})
+	} else {
+		var wallet = globalBlockChain.walletDictionary[pubKeyHash]
+		res.json({
+			code: Const.SUCCESS,
+			message: "Successfull",
+			data: {
+				balance: wallet.GetTotalMoney()
+			}
+		})
+	}
 })
 
 app.post('/transaction', (req, res) => {
